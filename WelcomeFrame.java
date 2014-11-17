@@ -68,6 +68,8 @@ public class WelcomeFrame
 		//TODO:Need To Add addActionListner  on both JButtons
 	}
 	
+	
+	// this is for test purpose
 	public static void main(String [] args)
 	{
 		WelcomeFrame test = new WelcomeFrame();
