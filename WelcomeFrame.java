@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javafx.scene.layout.BorderWidths;
 
@@ -16,11 +18,11 @@ import javax.swing.*;
  *
  */
 
-public class WelcomeFrame 
+public class WelcomeFrame extends JFrame
 {
 	// the size of the Welcome Frame
 	public static final int WEIDTH = 450;
-	public static final int HEIGHT =300;
+	public static final int HEIGHT =400;
 	
 	
 	/**
@@ -30,7 +32,7 @@ public class WelcomeFrame
 	public WelcomeFrame()
 	{
 		// Create JFrame
-		JFrame welcomeFrame = new JFrame();
+		 final JFrame welcomeFrame = new JFrame();
 		welcomeFrame.setTitle("Welcome to JSK Hotel Reservation System");
 		welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		welcomeFrame.setSize(WEIDTH, HEIGHT);
@@ -53,7 +55,7 @@ public class WelcomeFrame
 		viewOrCancel.setPreferredSize(new Dimension(300,60));
 		
 		//Create  JPanel
-		JPanel   welcomePanel = new JPanel();
+		final JPanel   welcomePanel = new JPanel();
 		welcomePanel.setLayout(new FlowLayout());
 		welcomePanel.setBackground(new Color(79, 79, 82).brighter());
 		welcomePanel.add(makeReservation);
@@ -66,10 +68,34 @@ public class WelcomeFrame
 		
 		
 		//TODO:Need To Add addActionListner  on both JButtons
-	}
+		
+		// Implement addActinLister  for make a reservation button
+		makeReservation.addActionListener(new
+				ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				welcomePanel.setVisible(false);
+				MakeReservationPanel login = new MakeReservationPanel();
+				welcomeFrame.add(login, BorderLayout.CENTER);
+			
+			}
+				
+				
+		});
 	
-	
-	// this is for test purpose
+	// Implement addActionListern for view/cancel a reservation 
+	viewOrCancel.addActionListener(new
+			ActionListener()
+	{
+		public void actionPerformed(ActionEvent event)
+		{
+			
+		    
+		}
+	});
+}
+
 	public static void main(String [] args)
 	{
 		WelcomeFrame test = new WelcomeFrame();
