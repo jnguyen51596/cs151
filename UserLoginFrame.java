@@ -1,11 +1,10 @@
 
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderWidths;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -20,9 +19,13 @@ public class UserLoginFrame extends JFrame
 {
 	 private Model model;
 	 private UserWelcomePanel userWelcome;
-	public UserLoginFrame(Model m,final JFrame welcomeframe)
+         private GuestList guestList;
+                 
+	public UserLoginFrame(Model m,final JFrame welcomeframe, GuestList gList)
 	{
 		model =m;
+                guestList = gList;
+                
 	    setTitle("Guest");
 		setSize(new Dimension(500,400));
 		setBackground(new Color(79, 79, 82).brighter());
@@ -55,9 +58,9 @@ public class UserLoginFrame extends JFrame
 	
 		
 		// create textfield for password and username
-		JTextField username = new JTextField();
+		final JTextField username = new JTextField();
 		username.setPreferredSize(new Dimension(300,30));
-		JPasswordField password = new JPasswordField();
+		final JPasswordField password = new JPasswordField();
 		password.setPreferredSize(new Dimension(300,30));
 		
 		// create login and cancel buttons
@@ -124,7 +127,7 @@ public class UserLoginFrame extends JFrame
 			{
 				loginCenter.setVisible(false);
 				loginSouth.setVisible(false);
-				RegistrationPanel registerPanel = new RegistrationPanel(model,loginCenter,loginSouth);
+				RegistrationPanel registerPanel = new RegistrationPanel(model,loginCenter,loginSouth, guestList);
 				add(registerPanel, BorderLayout.CENTER);
 				
 			    
@@ -136,19 +139,34 @@ public class UserLoginFrame extends JFrame
 		{
 			public void actionPerformed(ActionEvent event)
 			{
+                            int i = 0;
+                            i = guestList.authenticate(username.getText(), password.getText());
+                            
+                            if( i == 1){
 				userWelcome = new UserWelcomePanel(model, uloginframe);
 				loginCenter.setVisible(false);
 				loginSouth.setVisible(false);
 				add(userWelcome, BorderLayout.CENTER);
-				
+                            }
+                            else if(i == 0){
+                                popupBox("Incorrect Password", "Error");
+                            }
+                            else
+                                popupBox("User does not exists", "Error");
 			    
 			}
 		});
 		
 	
 	}
+        
+        
+        public static void popupBox(String infoMessage, String titleBar)
+        {
+            JOptionPane.showMessageDialog(null, infoMessage, " " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+        }
 
-	
+        
 	
 	
 	}

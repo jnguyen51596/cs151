@@ -1,3 +1,5 @@
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,9 +15,15 @@ import javax.swing.*;
 public class RegistrationPanel extends JPanel
 {
 	private Model model;
-	public RegistrationPanel(Model m,final JPanel loginCenter, final JPanel loginSouth)
+        private final int MAXYEAR = 2000;
+        private final int MINYEAR = 1800;
+        private GuestList guestList;
+        
+	public RegistrationPanel(Model m,final JPanel loginCenter, final JPanel loginSouth, GuestList gList)
 	{
 		model = m ;
+                guestList = gList;
+                
 		setBackground(new Color(100, 100,100).brighter());
 		JPanel registerCenter = new JPanel();
 		// panel customization
@@ -49,19 +57,19 @@ public class RegistrationPanel extends JPanel
 		
 		// create textfield for password and username
 		//textfield
-		JTextField firstname= new JTextField();
+		final JTextField firstname= new JTextField();
 		firstname.setPreferredSize(new Dimension(250,30));
-		JTextField lastname= new JTextField();
+		final JTextField lastname= new JTextField();
 		lastname.setPreferredSize(new Dimension(250,30));
-		JTextField username = new JTextField();
+		final JTextField username = new JTextField();
 		username.setPreferredSize(new Dimension(250,30));
-		JTextField  dateofbirth = new JTextField();
+		final JTextField  dateofbirth = new JTextField();
 		dateofbirth.setText("mm/dd/yyyy");
 		dateofbirth.setPreferredSize(new Dimension(250,30));
 		
-		JPasswordField password = new JPasswordField();
+		final JPasswordField password = new JPasswordField();
 		password.setPreferredSize(new Dimension(250,30));
-		JPasswordField confirmpassword = new JPasswordField();
+		final JPasswordField confirmpassword = new JPasswordField();
 		confirmpassword.setPreferredSize(new Dimension(230,30));
 		
 		// create register and cancel buttons
@@ -148,7 +156,51 @@ public class RegistrationPanel extends JPanel
 		
 		
 		//TODO: Implements addActionListner for register, and Clear buttons
-		
+                //REGISTER BUTTON
+                registerBtn.addActionListener(new
+				ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+                            String tempFN = firstname.getText();
+                            String tempLN = lastname.getText();
+                            String tempUN = username.getText();
+                            String tempDB = dateofbirth.getText();
+                            String tempPW = password.getText();
+                            String tempCPW = confirmpassword.getText();
+                            
+                            
+                            if(registerUser(tempFN, tempLN, tempUN, tempDB, tempPW, tempCPW)){
+                                guestList.addGuest(tempFN, tempLN, tempUN, tempDB, tempPW );
+                                popupBox("Registration Completed","Welcome " + tempUN);
+                                setVisible(false);
+				loginCenter.setVisible(true);
+				loginSouth.setVisible(true);
+                            }
+                            else{
+                                password.setText("");
+                                confirmpassword.setText("");
+                            }
+			}				
+		});
+
+                cancelBtn.addActionListener(new
+				ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+                            firstname.setText("");
+                            lastname.setText("");
+                            username.setText("");
+                            dateofbirth.setText("mm/dd/yyyy");
+                            password.setText("");
+                            confirmpassword.setText("");
+                        }
+				
+				
+		});
+                
+                
 		
 		// add action for back button
 		backBtn.addActionListener(new
@@ -167,7 +219,98 @@ public class RegistrationPanel extends JPanel
 		
 		
 	}
-	
-	
-	
+        
+        public boolean registerUser(String firstName, String LastName, String username, String date, String password, String password2)
+        {
+            
+            if(!isAlpha(firstName)){
+                popupBox("Invalid first name. It should contain only letters", "Error");
+                return false;
+            }
+            
+            if(!isAlpha(LastName)){
+                popupBox("Invalid last name. It should contain only letters", "Error");
+                return false;
+            }
+            
+            String delims = "/";
+            String[] bdate = date.split(delims);
+            if(bdate.length == 3){
+                if(!checkDate(bdate[0], bdate[1], bdate[2]))
+                    return false;
+            }
+            else
+                return false;
+  
+            if(!password.equals(password2)){
+                popupBox("Password mismatch", "Error");
+                return false;
+            }
+            
+            return true;
+        }
+        
+        public boolean isAlpha(String name) {
+            char[] chars = name.toCharArray();
+
+            for (char c : chars) {
+                if(!Character.isLetter(c)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
+        public boolean checkDate(String month, String day, String year){
+            int vday;
+            int vmonth;
+            int vyear;
+            
+            if (day.matches("[0-9]+") && day.length() <= 2) {
+                vday = Integer.parseInt(day);
+                if(vday <= 0 || vday > 31 ){
+                    popupBox("Date exceeds the range", "Error");
+                    return false;
+                }
+            }
+            else{
+                popupBox("Invalid Date","Error");
+                return false;
+            }
+            
+            if (month.matches("[0-9]+") && month.length() <= 2) {
+                vmonth = Integer.parseInt(month);
+                if(vmonth <= 0 || vmonth > 12){
+                    popupBox("Month exceeds the range", "Error");
+                    return false;
+                }
+            }
+            else{
+                popupBox("Invalid Month", "Error");
+                return false;
+            }
+            
+            if (year.matches("[0-9]+") && year.length() == 4) {
+                vyear = Integer.parseInt(year);
+                if(vyear <= MINYEAR || vyear >= MAXYEAR){
+                    popupBox("Year exceeds the range", "Error");
+                    return false;
+                }
+                    
+            }
+            else{
+                popupBox("Invalid Year", "Error");
+                return false;
+            }
+            
+            return true;   
+        }
+        
+        public static void popupBox(String infoMessage, String titleBar)
+        {
+            JOptionPane.showMessageDialog(null, infoMessage, " " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+        }
 }
+	
+

@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,8 +9,11 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-import javafx.scene.layout.BorderWidths;
 
 import javax.swing.*;
 
@@ -26,6 +30,7 @@ public class WelcomeFrame extends JFrame
 	public static final int WIDTH = 500;
 	public static final int HEIGHT =400;
 	private Model model;
+        private GuestList guestList;
 	private UserLoginFrame userLoginFrame ;
 	private  ManagerLoginFrame  managerLoginFrame;
 	/**
@@ -35,9 +40,8 @@ public class WelcomeFrame extends JFrame
 	public WelcomeFrame()
 	{
 		model = new Model();
-		
-		
-		
+                guestList = new GuestList();
+		    
 		// Create JFrame
 		setTitle("Welcome to JSK Hotel Reservation System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,7 +89,7 @@ public class WelcomeFrame extends JFrame
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				userLoginFrame = new UserLoginFrame(model, welcomeframe); // pass the model and frame
+				userLoginFrame = new UserLoginFrame(model, welcomeframe, guestList); // pass the model and frame
 				userLoginFrame.setVisible(true);
 				setVisible(false);
 			
@@ -112,10 +116,13 @@ public class WelcomeFrame extends JFrame
 		
 }
 
-	public static void main(String [] args)
+	public static void main(String [] args) throws IOException
 	{
 		WelcomeFrame test = new WelcomeFrame();
+
+        }
+                
 	}
 	
 
-}
+
