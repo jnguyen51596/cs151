@@ -37,6 +37,8 @@ public class ReservationFrame  extends JFrame
 		 checkInPanel = new  CheckInPanel (model);
 		 
 		// cancel button which direct back to previous frame
+		 	JPanel btnPanel = new JPanel();
+		 	btnPanel.setLayout(new GridBagLayout());
 			JButton mainmenuBtn = new JButton(" Main Menu ");
 			mainmenuBtn.setPreferredSize(new Dimension(200,40));
 			mainmenuBtn.setFont(new Font ("Serif",Font.BOLD, 20));
@@ -44,7 +46,10 @@ public class ReservationFrame  extends JFrame
 			mainmenuBtn.setBackground(Color.GRAY);
 			mainmenuBtn.setOpaque(true);
 			mainmenuBtn.setBorder(BorderFactory.createEmptyBorder());
-			
+			GridBagConstraints c = new GridBagConstraints();
+			c.gridx =1;
+			c.gridy =0;
+			btnPanel.add(mainmenuBtn,c);
 			
 			// add action to mainmenu button
 			mainmenuBtn.addActionListener(new
@@ -60,7 +65,7 @@ public class ReservationFrame  extends JFrame
 			});
 			
 
-		 mainmenuPanel.add(mainmenuBtn,BorderLayout.NORTH);
+		 mainmenuPanel.add(btnPanel,BorderLayout.NORTH);
 		 mainmenuPanel.add(roomInfoPanel,BorderLayout.CENTER);
 		 
 		 
