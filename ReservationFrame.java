@@ -25,13 +25,13 @@ public class ReservationFrame  extends JFrame
 		// create JFrame
 		 setTitle("Reservation System");
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 setSize(850, 450);
+		 setSize(750, 550);
 		 setLocation(200, 100);
 		 model = new Model();
 
 		 //create mainPanel
 		 JPanel  mainmenuPanel=new JPanel (); 
-		 mainmenuPanel.setLayout(new GridBagLayout());
+		 mainmenuPanel.setLayout(new BorderLayout());
 		 mainmenuPanel.setBackground(new Color(79, 79, 82).brighter());
 		 roomInfoPanel = new RoomInfoPanel(model,this, previousframe);
 		 checkInPanel = new  CheckInPanel (model);
@@ -59,26 +59,12 @@ public class ReservationFrame  extends JFrame
 					
 			});
 			
+
+		 mainmenuPanel.add(mainmenuBtn,BorderLayout.NORTH);
+		 mainmenuPanel.add(roomInfoPanel,BorderLayout.CENTER);
 		 
-		  // add components to mainmenuPanel
-		 GridBagConstraints c = new GridBagConstraints();
-		 c.fill = GridBagConstraints.ABOVE_BASELINE_LEADING;
-		  c.insets = new Insets(0,5,5,10);
-		  c.gridx=0;
-		  c.gridy =1;
-		  c.gridheight=2;
-		 mainmenuPanel.add(checkInPanel, c);
-		  
-		 c.weightx =1;
-		 c.weighty = 1;
-		 c.gridx=1;
-		 c.gridy =1;
-		 mainmenuPanel.add(roomInfoPanel,c);
 		 
-		 c.fill = GridBagConstraints.HORIZONTAL;
-		 c.gridx = 0;
-		 c.gridy = 0;
-		 mainmenuPanel.add(mainmenuBtn , c);
+		 
 		 
 		 // add to frame and make frame visible
 		 add(mainmenuPanel);
