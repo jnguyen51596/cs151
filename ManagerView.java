@@ -188,6 +188,25 @@ public class ManagerView extends JFrame implements ChangeListener
 				}
 			 }
 		 }
+		 // add changeListener to the two Jspinner
+		  ChangeListener listener= new ChangeListener(){
+		 
+			
+			public void stateChanged(ChangeEvent e) 
+			{
+				JSpinner tempSpinner =	(JSpinner) e.getSource();
+				//System.out.println( "Month Spinner -->"+tempSpinner.getValue());
+				
+			}
+			
+			 
+		 };
+		 
+		 monthSpinner.addChangeListener(listener);
+		 yearSpinner.addChangeListener(listener);
+		 
+		 
+		 
 		 // add components to panels
 		 calendarPanel.add(calendarTitlePanel, BorderLayout.NORTH );
 		 calendarPanel.add(calendarDayPanel, BorderLayout.CENTER);
