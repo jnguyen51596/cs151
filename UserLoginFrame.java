@@ -157,6 +157,20 @@ public class UserLoginFrame extends JFrame
 			}
 		});
 		
+		
+		// add action to cancel button
+		cancelBtn.addActionListener(new
+				 ActionListener ()
+		 {
+			 public void actionPerformed(ActionEvent event)
+			 {
+				 
+				 welcomeframe.setVisible(true);
+				 setVisible(false);
+			 }
+		
+		
+		});
 	
 	}
         
