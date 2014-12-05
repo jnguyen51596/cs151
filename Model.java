@@ -103,5 +103,23 @@ public class Model
 		return spaceCounter;
 	}
 	
+	/**
+ * This method validate manager's username and password 
+ * @param username manager's login name
+ * @param password manager's password
+ * @return true, if both user and password are correct, otherwise, false
+ */
+
+public boolean validateManagerLogin(String username, String password)
+{
+	if(managerLoginName.contains(username) && managerLoginPassword.contains(password) )
+	{
+		return true;
+	}
+	else
+	return false;
+}
+	
+	
 	
 }
