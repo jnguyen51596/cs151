@@ -3,11 +3,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author John
@@ -16,6 +11,9 @@ public class RoomList {
 
     private ArrayList<RoomInfo> roomList = new ArrayList<RoomInfo>();
 
+    /**
+     * Constructs the roomlist with information about the rooms that the hotel has
+     */
     public RoomList() {
         roomList.add(new RoomInfo(1, 100));
         roomList.add(new RoomInfo(2, 100));
@@ -40,6 +38,10 @@ public class RoomList {
         roomList.add(new RoomInfo(20, 200));
     }
 
+    /**
+     * Booked rooms according to the data retrieved from the file
+     * @param database Database object that has information retrieved from a file
+     */
     public void addBookingDatesToRoom(Database database) {
         for (int i = 0; i < database.getReservationListFromDatabase().size(); i++) {
             int startMonth = database.getReservationListFromDatabase().get(i).getStartMonth();
@@ -65,6 +67,12 @@ public class RoomList {
         }
     }
 
+    /**
+     * Gives the list of rooms that are available in the given dates
+     * @param date1 a string that contains the start date
+     * @param date2 a string that contains the end date
+     * @return the list of rooms available
+     */
     public ArrayList<RoomInfo> checkRoom(String date1, String date2) {
 
         int startMonthDate1 = 0;

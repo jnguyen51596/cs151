@@ -19,6 +19,14 @@ public class RegistrationPanel extends JPanel
         private final int MINYEAR = 1800;
         private GuestList guestList;
         
+        /**
+         * Constructs the RegistrationPanel, which is the GUI for the Guest user registration
+         * @param m The model object
+         * @param loginCenter a Jpanel, one of the Login panels
+         * @param loginSouth a JPanel, one of the Login panels
+         * @param gList a GuestList object, the list of guestlists
+         * @param database a Database object, the list of guests from the filed
+         */
 	public RegistrationPanel(Model m,final JPanel loginCenter, final JPanel loginSouth, GuestList gList, Database database)
 	{
 		model = m ;
@@ -41,6 +49,7 @@ public class RegistrationPanel extends JPanel
 		JLabel usernameLabel = new JLabel("Username:");
 		JLabel passwordLabel  = new JLabel("Password:");
 		JLabel confirmpasswordLabel = new JLabel("Confirm Password:");
+                
 		// customize labels
 		firstnameLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lastnameLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -148,8 +157,6 @@ public class RegistrationPanel extends JPanel
 		
 		
 		// add to makeReservationPanel
-		
-		
 		add(registerCenter, BorderLayout.CENTER);
 		add(btnPanel, BorderLayout.SOUTH);
 		setVisible(true);
@@ -169,7 +176,8 @@ public class RegistrationPanel extends JPanel
                             String tempPW = password.getText();
                             String tempCPW = confirmpassword.getText();
                             
-                            
+                            //If user pass the registerUser validation can be added to the guestList
+                            //and go to the UserLoginFrame
                             if(registerUser(tempFN, tempLN, tempUN, tempDB, tempPW, tempCPW)){
                                 guestList.addGuest(tempFN, tempLN, tempUN, tempDB, tempPW );
                                 popupBox("Registration Completed","Welcome " + tempUN);
@@ -177,6 +185,7 @@ public class RegistrationPanel extends JPanel
 				loginCenter.setVisible(true);
 				loginSouth.setVisible(true);
                             }
+                            // if there is an error, password and confirm password fields are erased
                             else{
                                 password.setText("");
                                 confirmpassword.setText("");
@@ -184,6 +193,8 @@ public class RegistrationPanel extends JPanel
 			}				
 		});
 
+                // CANCEL BUTTON ACTION
+                // clear all the fields
                 cancelBtn.addActionListener(new
 				ActionListener()
 		{
@@ -200,9 +211,8 @@ public class RegistrationPanel extends JPanel
 				
 		});
                 
-                
-		
 		// add action for back button
+                // Go to the UserLogin frame
 		backBtn.addActionListener(new
 				ActionListener()
 		{
@@ -220,19 +230,33 @@ public class RegistrationPanel extends JPanel
 		
 	}
         
+        /**
+         * Check if the user is going to be able to register. This method validates 
+         * of the information provided by the guest
+         * @param firstName a String, with the guest's first name
+         * @param LastName a String, with the guest's last name
+         * @param username a String, with the guest's username
+         * @param date a String, with the guest's birthdate
+         * @param password a String, with the guest's password
+         * @param password2 a String, with the password confirmation
+         * @return true if the user passes all validations,
+         *         false if there is an error in the user's information
+         */
         public boolean registerUser(String firstName, String LastName, String username, String date, String password, String password2)
         {
-            
+            //Check if the firstname only contains letters
             if(!isAlpha(firstName)){
                 popupBox("Invalid first name. It should contain only letters", "Error");
                 return false;
             }
             
+            //Check if the last name only contains letters
             if(!isAlpha(LastName)){
                 popupBox("Invalid last name. It should contain only letters", "Error");
                 return false;
             }
             
+            // Split the birthdate format and check if the birthdate provided is valid
             String delims = "/";
             String[] bdate = date.split(delims);
             if(bdate.length == 3){
@@ -242,6 +266,7 @@ public class RegistrationPanel extends JPanel
             else
                 return false;
   
+            // Check if the password matches the password provided in the confirm password field
             if(!password.equals(password2)){
                 popupBox("Password mismatch", "Error");
                 return false;
@@ -250,6 +275,12 @@ public class RegistrationPanel extends JPanel
             return true;
         }
         
+        /**
+         * Checks if the string provided contains only letters
+         * @param name the string to be checked
+         * @return false if the string contains a non-character
+         *         true if the string only has letters
+         */
         public boolean isAlpha(String name) {
             char[] chars = name.toCharArray();
 
@@ -262,11 +293,20 @@ public class RegistrationPanel extends JPanel
             return true;
         }
         
+        /**
+         * Checks if the month, day and year are valid 
+         * @param month an int with the month number
+         * @param day an int with the day number
+         * @param year an int with the year 
+         * @return false if one of the mentioned does not meet the requirements
+         *         true if all three numbers are valid
+         */
         public boolean checkDate(String month, String day, String year){
             int vday;
             int vmonth;
             int vyear;
             
+            //Check day
             if (day.matches("[0-9]+") && day.length() <= 2) {
                 vday = Integer.parseInt(day);
                 if(vday <= 0 || vday > 31 ){
@@ -279,6 +319,7 @@ public class RegistrationPanel extends JPanel
                 return false;
             }
             
+            //Check month
             if (month.matches("[0-9]+") && month.length() <= 2) {
                 vmonth = Integer.parseInt(month);
                 if(vmonth <= 0 || vmonth > 12){
@@ -291,6 +332,7 @@ public class RegistrationPanel extends JPanel
                 return false;
             }
             
+            //Check year
             if (year.matches("[0-9]+") && year.length() == 4) {
                 vyear = Integer.parseInt(year);
                 if(vyear <= MINYEAR || vyear >= MAXYEAR){
@@ -307,6 +349,11 @@ public class RegistrationPanel extends JPanel
             return true;   
         }
         
+        /**
+         * Displays a pop up box with a customized message
+         * @param infoMessage a String, the message to be displayed
+         * @param titleBar a String, the title that is in the Bar
+         */
         public static void popupBox(String infoMessage, String titleBar)
         {
             JOptionPane.showMessageDialog(null, infoMessage, " " + titleBar, JOptionPane.INFORMATION_MESSAGE);

@@ -26,6 +26,12 @@ public class UserWelcomePanel extends JPanel
 	private ReservationFrame guestMainMenu;
 	private ViewCancelFrame viewcancel;
 	
+        /**
+         * Constructs a UserWelcomePanel which is the GUI for the guest user 
+         * available actions
+         * @param m the model object
+         * @param previousframe the JFrame
+         */
 	public UserWelcomePanel(Model m,final JFrame previousframe)
 	
 	{
@@ -70,7 +76,7 @@ public class UserWelcomePanel extends JPanel
 				//TODO:Need To Add addActionListner  on both JButtons
 				
 				//TODO Implement addActinLister  for make a reservation button
-				
+				//Shows the ReservationFrame
 				makeReservation.addActionListener(new
 						ActionListener()
 				{
@@ -90,6 +96,7 @@ public class UserWelcomePanel extends JPanel
 				
 				
 			//TODO Implement addActionListern for view/cancel a reservation 
+                        // Gets to the ViewCancelFrame
 			viewOrCancel.addActionListener(new
 					ActionListener()
 			{

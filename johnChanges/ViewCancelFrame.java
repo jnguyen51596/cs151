@@ -5,11 +5,20 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-
+/**
+ * ViewCancelFrame class shows up when the user clicks on the View/Cancel Reservation
+ * Button available in the UserWelcomePanel.
+ * It constructs the GUI for the user to interact with. 
+ */
 public class ViewCancelFrame extends JFrame
 {
 	private Model model;
 	
+        /**
+         * 
+         * @param m
+         * @param previousframe 
+         */
 	public ViewCancelFrame(Model m, final JFrame previousframe)
 	{
 		model = m;

@@ -2,13 +2,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
+ * 
  * @author John
  */
 public class ReservationModel {
@@ -30,6 +25,10 @@ public class ReservationModel {
 
     }
 
+    /**
+     * Set the start date of the reservation
+     * @param startDate a String , the start date in MM/dd/yyyy format 
+     */
     public void addStartDate(String startDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -43,6 +42,10 @@ public class ReservationModel {
         }
     }
 
+    /**
+     * Set the end date of the reservation
+     * @param endDate a String , the end date in MM/dd/yyyy format
+     */
     public void addEndDate(String endDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -56,19 +59,37 @@ public class ReservationModel {
         }
     }
 
+    /**
+     * Set the room type for the reservation
+     * @param price an int, the room price, which represents the room type
+     */
     public void addRoomType(int price) {
         roomType = price;
     }
 
+    /**
+     * Set the room number where the reservation has been made
+     * @param number an int, the room number
+     */
     public void addRoomNumber(int number) {
         roomNum = number;
     }
     
+    /**
+     * Set the guest ID that made the reservation
+     * @param id an int, the guestID
+     */
     public void addGuestId(int id)
     {
         guestId=id;
     }
     
+    /**
+     * Check if the start date and the end date different is not greater than 60
+     * @param date1 an String, the start date
+     * @param date2 an String, the end date
+     * @return 
+     */
     public boolean CheckDaysBetweenDates(String date1, String date2) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -86,38 +107,65 @@ public class ReservationModel {
         return false;
     }
 
+    /**
+     * @return the month when the reservation starts
+     */
     public int getStartMonth() {
         return startMonth;
     }
 
+    /**
+     * @return the day when the reservation starts 
+     */
     public int getStartDay() {
         return startDay;
     }
 
+    /**
+     * @return the year when the reservation starts 
+     */
     public int getStartYear() {
         return startYear;
     }
 
+    /**
+     * @return the month when the reservation ends
+     */
     public int getEndMonth() {
         return endMonth;
     }
 
+    /**
+     * @return the last day of the reservation
+     */
     public int getEndDay() {
         return endDay;
     }
 
+    /** 
+     * @return the year when the reservation ends
+     */
     public int getEndYear() {
         return endYear;
     }
 
+    /**
+     * @return the room type of the reservation
+     */
     public int getRoomType() {      
         return roomType;
     }
 
+    /**
+     * @return the room number of the reservation 
+     */
     public int getRoomNumber() {
         return roomNum;
     }
-    
+ 
+    /**
+     * @return the guestID of the Guest who made the reservation
+     */
     public int getGuestId()
     {
         return guestId;

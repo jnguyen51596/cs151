@@ -4,10 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
-
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+
 /**
  * Guest<1>
  * This class must show after user selected guest option in WelcomeFrame
@@ -21,7 +20,14 @@ public class UserLoginFrame extends JFrame
 	 private UserWelcomePanel userWelcome;
          private GuestList guestList;
                  
-	public UserLoginFrame(Model m,final JFrame welcomeframe, GuestList gList, Database database)
+        /**
+         * Constructs a UserLoginFrame, which is the GUI for the user to login
+         * @param m the model object
+         * @param welcomeframe the JFrame object
+         * @param gList the GuestList that contains list of register guest users
+         * @param database the database that contains the information retrieved from the file
+         */
+	public UserLoginFrame(Model m,final JFrame welcomeframe, GuestList gList, final Database database)
 	{
 		model =m;
                 guestList = gList;
@@ -120,6 +126,7 @@ public class UserLoginFrame extends JFrame
 		
 		//TODO: Implements addActionListner for Login and Clear buttons
 		
+                //REGISTER BUTTON ACTION
 		registerBtn.addActionListener(new
 				ActionListener()
 		{
@@ -134,14 +141,17 @@ public class UserLoginFrame extends JFrame
 			}
 		});
 		
+                //LOGIN BUTTON ACTION
 		loginBtn.addActionListener(new
 				ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
 			{
+                            //Check if the password matches the username's password
                             int i = 0;
                             i = guestList.authenticate(username.getText(), password.getText());
                             
+                            //If matches it will go through to the UserWelcomePanel
                             if( i == 1){
 				userWelcome = new UserWelcomePanel(model, uloginframe);
 				loginCenter.setVisible(false);
@@ -160,7 +170,11 @@ public class UserLoginFrame extends JFrame
 	
 	}
         
-        
+         /**
+         * Displays a pop up box with a customized message
+         * @param infoMessage a String, the message to be displayed
+         * @param titleBar a String, the title that is in the Bar
+         */       
         public static void popupBox(String infoMessage, String titleBar)
         {
             JOptionPane.showMessageDialog(null, infoMessage, " " + titleBar, JOptionPane.INFORMATION_MESSAGE);
