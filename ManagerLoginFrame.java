@@ -118,6 +118,19 @@ loginBtn.addActionListener(new
 		 }
 	 });
 	
+	// add action to cancel button
+		cancelBtn.addActionListener(new
+				 ActionListener ()
+		 {
+			 public void actionPerformed(ActionEvent event)
+			 {
+				 
+				 welcomeframe.setVisible(true);
+				 setVisible(false);
+			 }
+		
+		
+		});
 	
 	}
 	
