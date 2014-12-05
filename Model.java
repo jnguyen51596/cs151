@@ -13,6 +13,8 @@ public class Model
 	private Calendar cal;
 	private String [] months;
 	private String [] daysName;
+	private Set<String> managerLoginName;
+	private Set<String> managerLoginPassword;
 	private ArrayList<String> date ;
 	private int spaceCounter;
 	public Model()
@@ -21,7 +23,10 @@ public class Model
 		months =new DateFormatSymbols().getMonths();
 		daysName = new DateFormatSymbols().getShortWeekdays();
 		date = new ArrayList<String>();
-			
+		managerLoginName = new TreeSet<String>();
+		managerLoginPassword = new HashSet<String>();
+		managerLoginName.add("sjk"); // set manager login name
+		managerLoginPassword.add("sjk"); // set manager login password	
 	}
 	
 	
