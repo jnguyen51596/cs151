@@ -6,13 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
+ * Database class contains method that obtain and writes the information from
+ * an outsource, a file. 
  * @author John
  */
 public class Database {
@@ -23,27 +19,45 @@ public class Database {
     File file2 = new File("/Users/John/Desktop/guest.txt");
 
     public Database() {
-
     }
 
+    /**
+     * Add a guest into the guestList
+     * @param g the guest to be added 
+     */
     public void addGuestList (Guest g)
     {
         guestList.add(g);
     }
+    
+    /**
+     * Add a reservation into the reservationList
+     * @param r the reservation to be added
+     */
     public void addReservationToDatabase(ReservationModel r) {
         reservationList.add(r);
     }
     
+    /**
+     * @return the guestList obtain from the file
+     */
     public ArrayList<Guest> getGuestListFromDatabase()
     {
         return guestList;
     }
     
+    /**
+     * @return the reservations obtain from the file
+     */
     public ArrayList<ReservationModel> getReservationListFromDatabase()
     {
         return reservationList;
     }
     
+    /**
+     * Saves/Writes all guest information into a file
+     * @throws FileNotFoundException 
+     */
     public void writeToGuestFile() throws FileNotFoundException {
         String firstname;
         String lastname;
@@ -92,11 +106,16 @@ public class Database {
                 bw.write(password);
                 bw.newLine();
             }
+            
             bw.close();
         } catch (IOException e) {
         }
     }
 
+    /**
+     * Read a file that contains guest information and stores into the guestlist
+     * @throws FileNotFoundException if the file does not exists
+     */
     public void readFromGuestFile() throws FileNotFoundException {
         Scanner output = new Scanner(System.in);
 
@@ -125,6 +144,10 @@ public class Database {
 
     }
 
+    /**
+     * Saves all the reservations into a File
+     * @throws FileNotFoundException 
+     */
     public void writeToReservationFile() throws FileNotFoundException {
         int sMonth;
         int sDay;
@@ -148,9 +171,12 @@ public class Database {
             e.printStackTrace();
         }
 
+        // Get all reservations from the guests to write into the file
         try {
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
+            
+            // Get each guest's information an write into the file
             for (int i = 0; i < guestList.size(); i++) {
                 sMonth = reservationList.get(i).getStartMonth();
                 sDay = reservationList.get(i).getStartDay();
@@ -165,10 +191,12 @@ public class Database {
 
                 guestId = reservationList.get(i).getGuestId();
 
+                //Check if the file already exists
                 if (!file.exists()) {
                     file.createNewFile();
                 }
 
+                //Write the reservation file
                 bw.write(sMonth);
                 bw.newLine();
                 bw.write(sDay);
@@ -194,6 +222,10 @@ public class Database {
         }
     }
 
+    /**
+     * Read a File and load the information from the reservations
+     * @throws FileNotFoundException 
+     */
     public void readFromReservationFile() throws FileNotFoundException {
         Scanner output = new Scanner(System.in);
 
@@ -212,9 +244,11 @@ public class Database {
             int roomNum = output.nextInt();
             int guestId = output.nextInt();
 
+            //Format start date and end date
             String startDate = sMonth + "/" + sDay + "/" + sYear;
             String endDate = eMonth + "/" + eDay + "/" + eYear;
 
+            // Insert information into the system
             temp.addStartDate(startDate);
             temp.addEndDate(endDate);
             temp.addRoomType(roomType);
