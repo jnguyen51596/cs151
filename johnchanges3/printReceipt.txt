@@ -1,0 +1,9 @@
+User Id: hi
+Full Name: hi hi
+ 
+Room number: 11
+Room Type: $200
+Start Date: 12/25/2014
+End Date: 12/26/2014
+ 
+Total Price: $200
