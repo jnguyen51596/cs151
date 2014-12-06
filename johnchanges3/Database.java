@@ -19,31 +19,30 @@ public class Database {
 
     ArrayList<Guest> guestList = new ArrayList<Guest>();
     ArrayList<ReservationModel> reservationList = new ArrayList<ReservationModel>();
-    File file = new File("/Users/John/Desktop/reservation2.txt");
+    File file = new File("/Users/John/Desktop/reservation.txt");
     File file2 = new File("/Users/John/Desktop/guest.txt");
+    File file3 = new File("/Users/John/Desktop/printReceipt.txt");
 
     public Database() {
 
     }
 
-    public void addGuestList (Guest g)
-    {
+    public void addToGuestList(Guest g) {
         guestList.add(g);
     }
+
     public void addReservationToDatabase(ReservationModel r) {
         reservationList.add(r);
     }
-    
-    public ArrayList<Guest> getGuestListFromDatabase()
-    {
+
+    public ArrayList<Guest> getGuestListFromDatabase() {
         return guestList;
     }
-    
-    public ArrayList<ReservationModel> getReservationListFromDatabase()
-    {
+
+    public ArrayList<ReservationModel> getReservationListFromDatabase() {
         return reservationList;
     }
-    
+
     public void writeToGuestFile() throws FileNotFoundException {
         String firstname;
         String lastname;
@@ -106,38 +105,38 @@ public class Database {
             String firstname = output.nextLine();
             String lastname = output.nextLine();
             String username = output.nextLine();
-            String bdate1=output.nextLine();
-            String bdate2=output.nextLine();
-            String bdate3=output.nextLine();
-            String password=output.nextLine();
-            
+            String bdate1 = output.nextLine();
+            String bdate2 = output.nextLine();
+            String bdate3 = output.nextLine();
+            String password = output.nextLine();
+
             temp.addFirstname(firstname);
             temp.addlastname(lastname);
-            temp.addUsername(username);           
+            temp.addUsername(username);
             temp.addBdate1(bdate1);
             temp.addBdate2(bdate2);
             temp.addBdate3(bdate3);
             temp.addPassword(password);
-            
-            addGuestList(temp);
+
+            addToGuestList(temp);
         }
         output.close();
 
     }
 
     public void writeToReservationFile() throws FileNotFoundException {
-        int sMonth;
-        int sDay;
-        int sYear;
+        String sMonth;
+        String sDay;
+        String sYear;
 
-        int eMonth;
-        int eDay;
-        int eYear;
+        String eMonth;
+        String eDay;
+        String eYear;
 
-        int roomType;
-        int roomNum;
+        String roomType;
+        String roomNum;
 
-        int guestId;
+        String guestId;
 
         try {
             FileWriter fw = new FileWriter(file);
@@ -151,17 +150,17 @@ public class Database {
         try {
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            for (int i = 0; i < guestList.size(); i++) {
-                sMonth = reservationList.get(i).getStartMonth();
-                sDay = reservationList.get(i).getStartDay();
-                sYear = reservationList.get(i).getStartYear();
+            for (int i = 0; i < reservationList.size(); i++) {
+                sMonth = Integer.toString(reservationList.get(i).getStartMonth());
+                sDay = Integer.toString(reservationList.get(i).getStartDay());
+                sYear = Integer.toString(reservationList.get(i).getStartYear());
 
-                eMonth = reservationList.get(i).getEndMonth();
-                eDay = reservationList.get(i).getEndDay();
-                eYear = reservationList.get(i).getEndYear();
+                eMonth = Integer.toString(reservationList.get(i).getEndMonth());
+                eDay = Integer.toString(reservationList.get(i).getEndDay());
+                eYear = Integer.toString(reservationList.get(i).getEndYear());
 
-                roomType = reservationList.get(i).getRoomType();
-                roomNum = reservationList.get(i).getRoomNumber();
+                roomType = Integer.toString(reservationList.get(i).getRoomType());
+                roomNum = Integer.toString(reservationList.get(i).getRoomNumber());
 
                 guestId = reservationList.get(i).getGuestId();
 
@@ -200,17 +199,17 @@ public class Database {
         output = new Scanner(file);
         while (output.hasNextLine()) {
             ReservationModel temp = new ReservationModel();
-            int sMonth = output.nextInt();
-            int sDay = output.nextInt();
-            int sYear = output.nextInt();
+            int sMonth = Integer.parseInt(output.nextLine());
+            int sDay = Integer.parseInt(output.nextLine());
+            int sYear = Integer.parseInt(output.nextLine());
 
-            int eMonth = output.nextInt();
-            int eDay = output.nextInt();
-            int eYear = output.nextInt();
+            int eMonth = Integer.parseInt(output.nextLine());
+            int eDay = Integer.parseInt(output.nextLine());
+            int eYear = Integer.parseInt(output.nextLine());
 
-            int roomType = output.nextInt();
-            int roomNum = output.nextInt();
-            int guestId = output.nextInt();
+            int roomType = Integer.parseInt(output.nextLine());
+            int roomNum = Integer.parseInt(output.nextLine());
+            String guestId = output.nextLine();
 
             String startDate = sMonth + "/" + sDay + "/" + sYear;
             String endDate = eMonth + "/" + eDay + "/" + eYear;
@@ -224,5 +223,30 @@ public class Database {
         }
         output.close();
 
+    }
+
+    public void writeToReceiptFile(String r) throws FileNotFoundException {
+        
+
+        try {
+            FileWriter fw = new FileWriter(file3);
+            BufferedWriter writer = new BufferedWriter(fw);
+            writer.write("");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileWriter fw = new FileWriter(file3);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            if (!file3.exists()) {
+                file3.createNewFile();
+            }
+            bw.write(r);
+            bw.close();
+        } catch (IOException e) {
+        }
     }
 }

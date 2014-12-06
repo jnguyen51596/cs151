@@ -40,6 +40,15 @@ public class RoomList {
         roomList.add(new RoomInfo(20, 200));
     }
 
+    public void addBooking(String date1, String date2, int roomnum) {
+        for (int i = 0; i < roomList.size(); i++) {
+            if (roomList.get(i).getRoomNumber() == roomnum) {
+                roomList.get(i).addDate(date1, date2);
+                break;
+            }
+        }
+    }
+
     public void addBookingDatesToRoom(Database database) {
         for (int i = 0; i < database.getReservationListFromDatabase().size(); i++) {
             int startMonth = database.getReservationListFromDatabase().get(i).getStartMonth();
@@ -100,10 +109,14 @@ public class RoomList {
 
                 if (startDate.after(roomStartDate) && startDate.before(roomEndDate)) {
                     break;
+                } else if (startDate.equals(roomStartDate) || startDate.equals(roomEndDate)) {
+                    break;
                 } else if (startDate.after(roomStartDate) && startDate.after(roomEndDate)) {
                     count++;
+                } else if (startDate.before(roomStartDate) && endDate.after(roomEndDate)) {
+                    break;
                 } else {
-                    if (endDate.before(roomStartDate)) {
+                    if (endDate.equals(roomStartDate)) {
                         break;
                     } else {
                         count++;
@@ -120,5 +133,5 @@ public class RoomList {
 
         return availableRoom;
     }
-    
+
 }

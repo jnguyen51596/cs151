@@ -34,9 +34,7 @@ public class WelcomeFrame extends JFrame
         private GuestList guestList;
 	private UserLoginFrame userLoginFrame ;
 	private  ManagerLoginFrame  managerLoginFrame;
-        public static Database database;
-        public static RoomList pubRoomList;
-        public static String currentuser;
+        
 	/**
 	 * This constructor construct  WelcomeFrame with
 	 * two JButtons and JPanel
@@ -44,16 +42,20 @@ public class WelcomeFrame extends JFrame
 	public WelcomeFrame() throws FileNotFoundException
 	{
 		model = new Model();               
-                guestList = new GuestList();
-                database=new Database();
-                pubRoomList = new RoomList();
+                guestList = new GuestList();             
+               
+                RoomList pubRoomList = new RoomList();
+                Database database=new Database();
                 
-                pubRoomList.addBookingDatesToRoom(database);            
-                database.readFromGuestFile();
-                database.readFromReservationFile();
-                for(int i=0; i<database.getGuestListFromDatabase().size();i++)
+                model.addRoomList(pubRoomList);
+                model.addDatabase(database);
+                
+                model.getRoomList().addBookingDatesToRoom(model.getDatabase());            
+                model.getDatabase().readFromGuestFile();
+                model.getDatabase().readFromReservationFile();
+                for(int i=0; i<model.getDatabase().getGuestListFromDatabase().size();i++)
                 {
-                    guestList.addFromDatabase(database.getGuestListFromDatabase().get(i));
+                    guestList.addFromDatabase(model.getDatabase().getGuestListFromDatabase().get(i));
                 }
 		    
 		// Create JFrame
@@ -118,7 +120,7 @@ public class WelcomeFrame extends JFrame
 			{
 				public void actionPerformed(ActionEvent event)
 				{
-					managerLoginFrame = new ManagerLoginFrame(model,welcomeframe, database ); // pass the model and frame
+					managerLoginFrame = new ManagerLoginFrame(model,welcomeframe); // pass the model and frame
 					managerLoginFrame.setVisible(true);
 					setVisible(false);
 				

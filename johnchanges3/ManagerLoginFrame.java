@@ -9,7 +9,7 @@ public class ManagerLoginFrame extends JFrame
 
 {
 	private Model model;
-	public ManagerLoginFrame(Model m, final JFrame welcomeframe, Database database)
+	public ManagerLoginFrame(Model m, final JFrame welcomeframe)
 	{
 	
 		model = m;
@@ -94,19 +94,45 @@ public class ManagerLoginFrame extends JFrame
 	//TODO: Implements addActionListner for Login and Clear buttons
 	 
 	//  add action Listener to Login button
-	 loginBtn.addActionListener(new
+loginBtn.addActionListener(new
 			 ActionListener ()
 	 {
 		 public void actionPerformed(ActionEvent event)
 		 {
-			 welcomeframe.setVisible(false);
-			 ManagerView  managerview = new ManagerView(model);
-			 managerview.setVisible(true);
 			 
+			 welcomeframe.setVisible(false);
+			 String name = username.getText();
+			 System.out.println("Manager login Name:"+name);
+			 String pass  = new String(password.getPassword());
+			 System.out.println("Manager login Name:"+pass);
+			  boolean verify = model.validateManagerLogin(name, pass);
+			  if(verify)
+			  {
+				  ManagerView  managerview = new ManagerView(model);
+				  managerview.setVisible(true);
+			  }
+			  else
+			  {
+				  JOptionPane.showMessageDialog(null,"Invalid Username and Password"," "+"Error",JOptionPane.ERROR_MESSAGE);
+			  }
 		 }
 	 });
 	
+	// add action to cancel button
+		cancelBtn.addActionListener(new
+				 ActionListener ()
+		 {
+			 public void actionPerformed(ActionEvent event)
+			 {
+				 
+				 welcomeframe.setVisible(true);
+				 setVisible(false);
+			 }
+		
+		
+		});
 	
 	}
+	
 	
 }

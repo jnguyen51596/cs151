@@ -42,10 +42,10 @@ public class UserWelcomePanel extends JPanel {
         // Create JButton for view/cancel a reservation
         JButton viewOrCancel = new JButton("View/Cancel a Reservation");
         viewOrCancel.setBorderPainted(true);
-        viewOrCancel.setBackground(new Color(59, 89, 182));
+        viewOrCancel.setBackground(Color.WHITE.darker());
         viewOrCancel.setForeground(Color.blue.brighter());
         viewOrCancel.setFont(new Font("Serif", Font.ITALIC, 20));
-        viewOrCancel.setPreferredSize(new Dimension(250, 60));
+        viewOrCancel.setPreferredSize(new Dimension(300, 60));
 
 				//Create  JPanel
         setLayout(new GridBagLayout());
@@ -59,8 +59,9 @@ public class UserWelcomePanel extends JPanel {
         c.gridy = 0;
         add(makeReservation, c);
 
-        c.gridx = 1;
-        c.gridwidth = 2;
+        c.gridx = 0;
+        c.gridy = 1;
+        //c.gridwidth = 3;
         add(viewOrCancel, c);
 
         setVisible(true);

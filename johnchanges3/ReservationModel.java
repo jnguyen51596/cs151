@@ -24,7 +24,9 @@ public class ReservationModel {
     private int roomType;
     private int roomNum;
     
-    private int guestId;
+    private String guestId;
+    
+    private int tempNum;
 
     public ReservationModel() {
 
@@ -64,9 +66,14 @@ public class ReservationModel {
         roomNum = number;
     }
     
-    public void addGuestId(int id)
+    public void addGuestId(String id)
     {
         guestId=id;
+    }
+    
+    public void addTempNum(int num)
+    {
+        tempNum=num;
     }
     
     public boolean CheckDaysBetweenDates(String date1, String date2) {
@@ -118,8 +125,13 @@ public class ReservationModel {
         return roomNum;
     }
     
-    public int getGuestId()
+    public String getGuestId()
     {
         return guestId;
+    }
+    
+    public int getTempNum()
+    {
+        return tempNum;
     }
 }

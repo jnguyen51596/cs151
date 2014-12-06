@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -34,8 +35,11 @@ public class GuestList {
 
     }
 
-    public void addGuest(String fname, String lname, String uname, String date, String psw) {
-        guestList.add(new Guest(fname, lname, uname, date, psw));
+    public void addGuest(String fname, String lname, String uname, String date, String psw, Model m) throws FileNotFoundException {
+        Guest temp=new Guest(fname, lname, uname, date, psw);
+        guestList.add(temp);
+        m.getDatabase().addToGuestList(temp);
+        m.getDatabase().writeToGuestFile();
     }
     public void addFromDatabase(Guest g)
     {
