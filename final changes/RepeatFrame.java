@@ -81,6 +81,8 @@ public class RepeatFrame extends JFrame {
         add(mainPanel);
         setVisible(true);
 
+        //Add actionlistener to the Continue Button
+        //Constructs a ReservationFrame and shows it. Reset the model CheckIn and CheckOut dates.
         contBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 reserve = new ReservationFrame(model, welcomeframe);
@@ -92,6 +94,8 @@ public class RepeatFrame extends JFrame {
             }
         });
 
+        //Add actionlistener to the Transaction Done (End) button
+        //Constructs printReceiptFrame and shows the frame
         endBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 printFrame = new PrintReceiptFrame(model, welcomeframe);

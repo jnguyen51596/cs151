@@ -140,9 +140,12 @@ public class UserLoginFrame extends JFrame {
             }
         });
 
+        //LOGIN BUTTON ACTION
         loginBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 int i = 0;
+                
+                //Check if the password matches the username's password
                 i = guestList.authenticate(username.getText(), password.getText());
 
                 if (i == 1) {

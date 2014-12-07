@@ -166,6 +166,8 @@ public class RegistrationPanel extends JPanel {
                 String tempPW = password.getText();
                 String tempCPW = confirmpassword.getText();
 
+                //If user pass the registerUser validation can be added to the guestList
+                //and go to the UserLoginFrame
                 if (registerUser(tempFN, tempLN, tempUN, tempDB, tempPW, tempCPW)) {
                     try {
                         guestList.addGuest(tempFN, tempLN, tempUN, tempDB, tempPW, model);
@@ -184,6 +186,8 @@ public class RegistrationPanel extends JPanel {
             }
         });
 
+        // CANCEL BUTTON ACTION
+        // clear all the fields
         cancelBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 firstname.setText("");
@@ -197,6 +201,7 @@ public class RegistrationPanel extends JPanel {
         });
 
         // add action for back button
+        // Go to the UserLogin frame
         backBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 setVisible(false);

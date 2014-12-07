@@ -88,6 +88,8 @@ public class PrintReceiptFrame extends JFrame {
         add(mainPanel);
         setVisible(true);
 
+        //Add actionlistener to the Simple Button
+        //Gets the simple version of the receipt into the textarea
         simpleBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 try {
@@ -102,6 +104,8 @@ public class PrintReceiptFrame extends JFrame {
 
         });
 
+        //Add actionlistener to the Comprehensive Button
+        //Gets the comprehensive version of the receipt into the textarea
         comprehensiveBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 try {
@@ -116,6 +120,8 @@ public class PrintReceiptFrame extends JFrame {
 
         });
 
+        //Add actionlistener to the Print Button
+        //Retrieve user's selected receipt and write the receipt into a file
         printBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 try {

@@ -161,6 +161,7 @@ public class RoomInfoPanel extends JPanel {
             public void actionPerformed(ActionEvent event) {
                 ReservationModel temp = new ReservationModel();
                 try {
+                    //Check that user filled the check in and check out dates
                     if (!checkinTextField.getText().equals("") && !checkoutTextField.getText().equals("")) {
 
                         temp.addStartDate(checkinTextField.getText());
@@ -173,6 +174,7 @@ public class RoomInfoPanel extends JPanel {
                         model.addToTempReserveList(temp);
                         model.getRoomList().addBooking(checkinTextField.getText(), checkoutTextField.getText(), Integer.parseInt(roomNumber.getText()));
 
+                        //If user want to make more reservations
                         repeatframe = new RepeatFrame(model, welcomeframe);
                         repeatframe.setVisible(true);
                         reservationframe.setVisible(false);
@@ -185,7 +187,9 @@ public class RoomInfoPanel extends JPanel {
             }
 
         });
+        
         //transactionDoneBtn
+        // Redirects the user to the print receipt frame and the reservation frame
         transactionDoneBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 printFrame = new PrintReceiptFrame(model, welcomeframe);
@@ -216,6 +220,7 @@ public class RoomInfoPanel extends JPanel {
 
                 try {
                     ReservationModel check = new ReservationModel();
+                    // Validation of the dates
                     boolean daysInBetween = check.CheckDaysBetweenDates(model.getCheckIn(), model.getCheckOut());
                     if (startDate.before(currentDate) || endDate.before(currentDate)) {
                         JOptionPane.showMessageDialog(null, " Start and End Date Prior to Current Date", "Error", JOptionPane.INFORMATION_MESSAGE);
@@ -258,6 +263,7 @@ public class RoomInfoPanel extends JPanel {
 
                 try {
                     ReservationModel check = new ReservationModel();
+                    // Validation of the dates
                     boolean daysInBetween = check.CheckDaysBetweenDates(model.getCheckIn(), model.getCheckOut());
                     if (startDate.before(currentDate) || endDate.before(currentDate)) {
                         JOptionPane.showMessageDialog(null, " Start and End Date Prior to Current Date", "Error", JOptionPane.INFORMATION_MESSAGE);
