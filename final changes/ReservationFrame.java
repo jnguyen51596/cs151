@@ -17,7 +17,6 @@ public class ReservationFrame extends JFrame {
 
     private Model model;
     private RoomInfoPanel roomInfoPanel;
-    private CheckInPanelOld checkInPanel;
 
     /**
      * Construct the reservation frame.
